@@ -7,7 +7,6 @@
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
 <body>
-{% csrf_token %}
 <div>
     <header>
         <div class="nav-left">
@@ -17,6 +16,13 @@
             <a href="{% url 'post_new' %}">+ New Blog Post</a>
         </div>
     </header>
+    {% if user.is_authenticated %}
+        <p>Hi {{ user.username }}!</p>
+        <p><a href="{% url 'logout' %}">Log out</a></p>
+    {% else %}
+        <p>You are not logged in.</p>
+        <a href="{% url 'login' %}">Log In</a>
+    {% endif %}
     {% block content %}
     {% endblock content %}
 </div>
